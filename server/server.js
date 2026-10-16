@@ -1,6 +1,9 @@
 
 require("dotenv").config();
 
+// Prueba temporal para ver si lee el archivo
+console.log("El secreto de mi Diario Koi es:", process.env.JWT_SECRET);
+
 const express = require("express");
 const cors = require("cors");
 
@@ -19,6 +22,24 @@ app.use(cors({
 }));
 
 app.use(express.json({ limit: "1mb" }));
+
+//BORRAR
+
+const Prueba = require("./models/Prueba");
+
+
+app.post("/api/prueba", async (req, res) => {
+  try {
+    const nuevaPrueba = new Prueba({ mensaje: req.body.mensaje });
+    await nuevaPrueba.save(); // Aquí se guarda en Atlas
+    res.status(201).json({ exito: true, data: nuevaPrueba });
+  } catch (error) {
+    console.error("EL ERROR EXACTO ES:", error);
+    res.status(500).json({ exito: false, error: error.message });
+  }
+});
+
+//BORRAR
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({
