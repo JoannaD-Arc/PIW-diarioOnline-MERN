@@ -35,3 +35,4 @@ const protegerRuta = (req, res, next) => {
 };
 
 module.exports = protegerRuta;
+
