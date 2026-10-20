@@ -4,7 +4,7 @@ const express = require("express");
 const {
   registrarUsuario,
   iniciarSesion
-} = require("../controllers/authController");
+} = require("../controller/authController");
 
 const router = express.Router();
 
