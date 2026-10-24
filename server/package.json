@@ -4,11 +4,18 @@
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
+<<<<<<< HEAD
     "dotenv": "^18.0.9",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.10.3",
     "multer": "^2.5.0"
+=======
+    "dotenv": "^18.0.8",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.10.3"
+>>>>>>> 86613929445d415d216e305e2ca45f53fdbb6d68
   },
   "devDependencies": {
     "nodemon": "^1.14.10"

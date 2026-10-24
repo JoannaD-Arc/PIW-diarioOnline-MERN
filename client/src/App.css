@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*.counter {
+=======
+.counter {
+>>>>>>> 86613929445d415d216e305e2ca45f53fdbb6d68
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -182,4 +186,7 @@
     border-right-color: var(--border);
   }
 }
+<<<<<<< HEAD
 /*
+=======
+>>>>>>> 86613929445d415d216e305e2ca45f53fdbb6d68
