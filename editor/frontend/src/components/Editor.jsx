@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
-import Image from "@tiptap/extension-image";
+import { ImagenAlineable } from "../extensions/ImagenAlineable.js";
 import Toolbar from "./Toolbar.jsx";
 import { guardarContenido, obtenerContenido } from "../api";
 
@@ -70,7 +70,7 @@ function EditorTexto({ cuadernoId, datosIniciales }) {
       //StarterKit ya incluye negrita, cursiva, subrayado,etc
       StarterKit.configure({ link: { openOnClick: false } }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
-            Image.configure({
+            ImagenAlineable.configure({
         resize: {
           enabled: true,
           directions: ["top-left", "top-right", "bottom-left", "bottom-right"],
