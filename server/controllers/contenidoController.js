@@ -20,7 +20,7 @@ exports.guardar = async (req, res, next) => {
     if (req.body.contenido !== undefined) cambios.contenido = req.body.contenido;
 
     const doc = await Contenido.findOneAndUpdate({ cuaderno: req.params.id }, cambios, {
-      new: true,
+      returnDocument: "after",
       upsert: true,
       setDefaultsOnInsert: true,
     });
