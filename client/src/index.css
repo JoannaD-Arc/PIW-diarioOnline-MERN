@@ -1,6 +1,7 @@
 .ProseMirror {
   min-height: 80vh;
   outline: none;
+  display: flow-root;
 }
 
 /*para que las imágenes nunca se salgan del ancho de la hoja*/
@@ -46,4 +47,18 @@
   .ProseMirror [data-resize-handle="top-right"] { top: -12px; right: -12px; }
   .ProseMirror [data-resize-handle="bottom-left"] { bottom: -12px; left: -12px; }
   .ProseMirror [data-resize-handle="bottom-right"] { bottom: -12px; right: -12px; }
+}
+
+
+/*alineación de imágenes*/
+.ProseMirror [data-resize-container][data-align="left"] {
+  float: left;
+  margin: 4px 16px 8px 0;
+}
+.ProseMirror [data-resize-container][data-align="right"] {
+  float: right;
+  margin: 4px 0 8px 16px;
+}
+.ProseMirror [data-resize-container][data-align="center"] {
+  justify-content: center;
 }

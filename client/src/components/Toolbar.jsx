@@ -21,6 +21,12 @@ import { subirImagen } from "../api";
 
   const nivelActual = [1, 2, 3].find((n) => editor.isActive("heading", { level: n })) || 0;
 
+  const alineacionImagen = editor.getAttributes("image").align || "none";
+
+  function alinearImagen(align) {
+    editor.chain().focus().updateAttributes("image", { align }).run();
+  }
+
   function cambiarEstilo(e) {
     const nivel = Number(e.target.value);
     if (nivel === 0) editor.chain().focus().setParagraph().run();
@@ -97,6 +103,14 @@ import { subirImagen } from "../api";
       {boton("Enlace", "Insertar o editar enlace", ponerEnlace, editor.isActive("link"))}
       {boton("Imagen", "Insertar imagen", () => inputImagen.current.click())}
       <input ref={inputImagen} type="file" accept="image/*" onChange={alElegirImagen} style={{ display: "none" }} />
+            {editor.isActive("image") && (
+        <>
+          {boton("Img izq.", "Imagen a la izquierda (el texto la rodea)", () => alinearImagen("left"), alineacionImagen === "left")}
+          {boton("Img centro", "Imagen centrada (sin texto a los lados)", () => alinearImagen("center"), alineacionImagen === "center")}
+          {boton("Img der.", "Imagen a la derecha (el texto la rodea)", () => alinearImagen("right"), alineacionImagen === "right")}
+          {boton("Sin ajuste", "Imagen sola en su línea, a la izquierda", () => alinearImagen("none"), alineacionImagen === "none")}
+        </>
+      )}
 
       {boton("Deshacer", "Deshacer", () => editor.chain().focus().undo().run())}
       {boton("Rehacer", "Rehacer", () => editor.chain().focus().redo().run())}
