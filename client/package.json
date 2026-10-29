@@ -10,13 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@tiptap/extension-image": "^3.32.0",
     "@tiptap/extension-text-align": "^3.32.0",
     "@tiptap/react": "^3.32.0",
     "@tiptap/starter-kit": "^3.32.0",
-=======
->>>>>>> 86613929445d415d216e305e2ca45f53fdbb6d68
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
@@ -29,10 +26,6 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.6",
     "globals": "^17.12.0",
-<<<<<<< HEAD
     "vite": "^8.3.5"
-=======
-    "vite": "^8.3.0"
->>>>>>> 86613929445d415d216e305e2ca45f53fdbb6d68
   }
 }
