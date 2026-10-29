@@ -1,0 +1,49 @@
+/* ---------- Hoja de escritura ---------- */
+.ProseMirror {
+  min-height: 80vh;
+  outline: none;
+}
+
+/* las imágenes nunca se salen del ancho de la hoja */
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- Puntos para redimensionar imágenes ---------- */
+/* escondidos por defecto; se ven al pasar el cursor (compu) o al tocar la imagen (celular) */
+.ProseMirror [data-resize-handle] {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #1a73e8;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.15s;
+  touch-action: none; /* la página no se desplaza mientras se arrastra un punto */
+}
+
+.ProseMirror [data-resize-handle="top-left"]     { top: -6px;    left: -6px;  cursor: nwse-resize; }
+.ProseMirror [data-resize-handle="top-right"]    { top: -6px;    right: -6px; cursor: nesw-resize; }
+.ProseMirror [data-resize-handle="bottom-left"]  { bottom: -6px; left: -6px;  cursor: nesw-resize; }
+.ProseMirror [data-resize-handle="bottom-right"] { bottom: -6px; right: -6px; cursor: nwse-resize; }
+
+.ProseMirror :has([data-resize-handle]):hover [data-resize-handle],
+.ProseMirror .ProseMirror-selectednode [data-resize-handle] {
+  opacity: 1;
+}
+
+/* pantallas táctiles: puntos más grandes */
+@media (hover: none) and (pointer: coarse) {
+  .ProseMirror [data-resize-handle] {
+    width: 24px;
+    height: 24px;
+  }
+  .ProseMirror [data-resize-handle="top-left"]     { top: -12px;    left: -12px; }
+  .ProseMirror [data-resize-handle="top-right"]    { top: -12px;    right: -12px; }
+  .ProseMirror [data-resize-handle="bottom-left"]  { bottom: -12px; left: -12px; }
+  .ProseMirror [data-resize-handle="bottom-right"] { bottom: -12px; right: -12px; }
+}

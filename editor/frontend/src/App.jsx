@@ -1,11 +1,20 @@
-import Editor from "./components/Editor.jsx";
-
-//SOLO PARA PRUEBAS
-// renderiza <Editor cuadernoId={cuaderno._id} />.
-// Para probar otro cuaderno: http://localhost:5173/?cuaderno=<id de 24 caracteres hex>
-const ID_PRUEBA = "000000000000000000000001";
-const cuadernoId = new URLSearchParams(window.location.search).get("cuaderno") || ID_PRUEBA;
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import Diary from "./pages/Diary.jsx";
+import InsideDiary from "./pages/InsideDiary.jsx";
 
 export default function App() {
-  return <Editor cuadernoId={cuadernoId} />;
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<h1>Inicio</h1>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Register />} />
+        <Route path="/diarios" element={<Diary />} />
+        <Route path="/diarios/:id" element={<InsideDiary />} />
+      </Route>
+    </Routes>
+  );
 }

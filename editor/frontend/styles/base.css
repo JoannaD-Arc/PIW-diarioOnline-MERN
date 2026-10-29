@@ -1,0 +1,22 @@
+:root {
+  --fondo: #faf7f2;
+  --texto: #2b2b2b;
+  --gris-oscuro: #333333;
+  --acento: #e8622c;
+  --acento-hover: #cf501d;
+  --borde: #d9d4cc;
+  --peligro: #c0392b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+a { color: var(--acento); text-decoration: none; }
+a:hover { text-decoration: underline; }
