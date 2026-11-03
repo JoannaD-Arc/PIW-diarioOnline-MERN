@@ -29,8 +29,6 @@ app.use(cors());
 
 app.use(express.json({ limit: "50mb" }));
 
-app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
-
 //BORRAR
 
 const Prueba = require("./models/Prueba");

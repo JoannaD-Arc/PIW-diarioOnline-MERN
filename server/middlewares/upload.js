@@ -1,15 +1,19 @@
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
 
-const carpeta = path.join(__dirname, "..", "..", "uploads");
-fs.mkdirSync(carpeta, { recursive: true });
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, carpeta),
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`);
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "diario_koi_imagenes", 
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
   },
 });
 
@@ -18,4 +22,8 @@ const fileFilter = (req, file, cb) => {
   else cb(new Error("Solo se permiten imágenes"));
 };
 
-module.exports = multer({ storage, fileFilter, limits: { fileSize: 5 * 1024 * 1024 } });
+module.exports = multer({ 
+  storage: storage, 
+  fileFilter: fileFilter, 
+  limits: { fileSize: 5 * 1024 * 1024 } // Límite de 5MB
+});
