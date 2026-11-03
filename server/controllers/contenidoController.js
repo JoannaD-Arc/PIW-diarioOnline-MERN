@@ -1,36 +1,89 @@
 const Contenido = require("../models/Contenido");
 
-exports.obtener = async (req, res, next) => {
+// Crear
+const crear = async (req, res) => {
   try {
-    const doc = await Contenido.findOne({ cuaderno: req.params.id });
-    res.status(200).json({
-      titulo: doc ? doc.titulo || "" : "",
-      contenido: doc ? doc.contenido : null,
+    const nuevoContenido = new Contenido({
+      owner: req.userId,
+      titulo: req.body.titulo || "Cuaderno sin título",
+      contenido: req.body.contenido || null,
     });
-  } catch (err) {
-    next(err);
+    
+    await nuevoContenido.save();
+    res.status(201).json({ exito: true, data: nuevoContenido });
+  } catch (error) {
+    res.status(500).json({ exito: false, error: error.message });
   }
 };
 
-//Crea el contenido si no existe, o lo actualiza si ya existe
-exports.guardar = async (req, res, next) => {
+// Listar
+const listar = async (req, res) => {
   try {
-    const cambios = {};
-    if (req.body.titulo !== undefined) cambios.titulo = req.body.titulo;
-    if (req.body.contenido !== undefined) cambios.contenido = req.body.contenido;
+    const cuadernos = await Contenido.find({ owner: req.userId });
+    res.status(200).json({ exito: true, data: cuadernos });
+  } catch (error) {
+    res.status(500).json({ exito: false, error: error.message });
+  }
+};
 
-    const doc = await Contenido.findOneAndUpdate({ cuaderno: req.params.id }, cambios, {
-      new: true,
-      upsert: true,
-      setDefaultsOnInsert: true,
+// Obtener
+const obtener = async (req, res) => {
+  try {
+    const cuaderno = await Contenido.findOne({ 
+      _id: req.params.id, 
+      owner: req.userId 
     });
 
-    //cuando exista el modelo Cuaderno (en el manejo de cuaderno), actualizar también su título:
-    // if (req.body.titulo !== undefined)
-    //   await Cuaderno.findByIdAndUpdate(req.params.id, { titulo: req.body.titulo });
+    if (!cuaderno) {
+      return res.status(404).json({ exito: false, error: "No encontrado o no tienes permiso" });
+    }
 
-    res.status(200).json({ ok: true, actualizado: doc.updatedAt });
-  } catch (err) {
-    next(err);
+    res.status(200).json({ exito: true, data: cuaderno });
+  } catch (error) {
+    res.status(500).json({ exito: false, error: error.message });
   }
+};
+
+// Guardar
+const guardar = async (req, res) => {
+  try {
+    const cuaderno = await Contenido.findOneAndUpdate(
+      { _id: req.params.id, owner: req.userId },
+      { 
+        contenido: req.body.contenido,
+        titulo: req.body.titulo 
+      },
+      { new: true }
+    );
+
+    if (!cuaderno) return res.status(404).json({ exito: false, error: "No encontrado" });
+
+    res.status(200).json({ exito: true, data: cuaderno });
+  } catch (error) {
+    res.status(500).json({ exito: false, error: error.message });
+  }
+};
+
+// Eliminar
+const eliminar = async (req, res) => {
+  try {
+    const cuaderno = await Contenido.findOneAndDelete({ 
+      _id: req.params.id, 
+      owner: req.userId 
+    });
+
+    if (!cuaderno) return res.status(404).json({ exito: false, error: "No encontrado" });
+
+    res.status(200).json({ exito: true, mensaje: "Cuaderno eliminado" });
+  } catch (error) {
+    res.status(500).json({ exito: false, error: error.message });
+  }
+};
+
+module.exports = {
+  crear,
+  listar,
+  obtener,
+  guardar,
+  eliminar
 };

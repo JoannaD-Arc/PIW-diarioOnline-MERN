@@ -6,12 +6,10 @@ import Image from "@tiptap/extension-image";
 import Toolbar from "./Toolbar.jsx";
 import { guardarContenido, obtenerContenido } from "../api";
 
-const ESPERA_MS = 1000; // se guarda 1 segundo después del último cambio
+const ESPERA_MS = 1000;
 
-// Uso: <Editor cuadernoId="..." />
-// Carga el título y el contenido del cuaderno y los guarda solos mientras se escribe.
 export default function Editor({ cuadernoId }) {
-  const [inicial, setInicial] = useState(undefined); // undefined = cargando
+  const [inicial, setInicial] = useState(undefined);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -32,7 +30,7 @@ function EditorTexto({ cuadernoId, datosIniciales }) {
   const [estado, setEstado] = useState("Guardado");
   const temporizador = useRef(null);
   const sinGuardar = useRef(false);
-  //últimos valores del título y del contenido se envía al guardar
+  
   const datos = useRef({
     titulo: datosIniciales.titulo || "",
     contenido: datosIniciales.contenido,
@@ -47,7 +45,7 @@ function EditorTexto({ cuadernoId, datosIniciales }) {
       await guardarContenido(cuadernoId, datos.current);
       if (!sinGuardar.current) setEstado("Guardado");
     } catch (err) {
-      sinGuardar.current = true; // se reintenta en el siguiente cambio
+      sinGuardar.current = true;
       setEstado(`Error al guardar: ${err.message}`);
     }
   }
@@ -67,28 +65,26 @@ function EditorTexto({ cuadernoId, datosIniciales }) {
 
   const editor = useEditor({
     extensions: [
-      //StarterKit ya incluye negrita, cursiva, subrayado,etc
       StarterKit.configure({ link: { openOnClick: false } }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
-            Image.configure({
+      Image.configure({
         resize: {
           enabled: true,
           directions: ["top-left", "top-right", "bottom-left", "bottom-right"],
           minWidth: 50,
           minHeight: 50,
-          alwaysPreserveAspectRatio: true, // mantiene la proporción
+          alwaysPreserveAspectRatio: true,
         },
       }),
     ],
     content: datosIniciales.contenido || "",
-    shouldRerenderOnTransaction: true, // para que la barra marque los formatos activos
+    shouldRerenderOnTransaction: true,
     onUpdate: ({ editor }) => {
       datos.current.contenido = editor.getJSON();
       programarGuardado();
     },
   });
 
-  //evita perder cambios al salir del cuaderno o cerrar la pestaña
   useEffect(() => {
     const avisar = (e) => {
       if (sinGuardar.current) e.preventDefault();
@@ -100,7 +96,6 @@ function EditorTexto({ cuadernoId, datosIniciales }) {
     };
   }, []);
 
-    //la librería de redimensión detecta cuándo el dedo empieza y se mueve, pero no cuando se levanta, esto avisa que el gesto terminó para que guarde el tamaño.
   useEffect(() => {
     const terminarGesto = () => {
       if (document.querySelector('[data-resize-state="true"]')) {
@@ -123,7 +118,7 @@ function EditorTexto({ cuadernoId, datosIniciales }) {
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
-            editor?.commands.focus("start"); // pasa el cursor al texto
+            editor?.commands.focus("start");
           }
         }}
         placeholder="Cuaderno sin título"

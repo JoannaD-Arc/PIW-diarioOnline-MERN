@@ -1,7 +1,7 @@
-
 const jwt = require("jsonwebtoken");
 
 const protegerRuta = (req, res, next) => {
+  // Header
   const authorization = req.headers.authorization;
 
   if (!authorization || !authorization.startsWith("Bearer ")) {
@@ -10,6 +10,7 @@ const protegerRuta = (req, res, next) => {
     });
   }
 
+  // Token
   const token = authorization.slice(7);
 
   try {
@@ -24,6 +25,7 @@ const protegerRuta = (req, res, next) => {
       });
     }
 
+    // Usuario
     req.userId = payload.sub;
 
     next();

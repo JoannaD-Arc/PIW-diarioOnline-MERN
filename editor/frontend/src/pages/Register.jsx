@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button.jsx";
 
 export default function Register() {
@@ -10,21 +10,46 @@ export default function Register() {
     confirmar: "",
   });
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  // un solo handler para todos los campos, usa el atributo name del input
   function cambiar(e) {
     setDatos({ ...datos, [e.target.name]: e.target.value });
   }
 
-  function enviar(e) {
+  async function enviar(e) {
     e.preventDefault();
+    
     if (datos.contrasena !== datos.confirmar) {
       setError("Las contraseñas no coinciden");
       return;
     }
     setError("");
-    // TODO: llamar a la API de registro cuando el backend esté listo
-    console.log(datos);
+
+    try {
+      const respuesta = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: datos.nombre,
+          email: datos.correo,
+          password: datos.contrasena,
+        }),
+      });
+
+      const resultado = await respuesta.json();
+
+      if (respuesta.ok) {
+        alert("¡Cuenta creada con éxito! Ya puedes iniciar sesión.");
+        navigate("/login"); 
+      } else {
+        setError(resultado.mensaje || "No se pudo crear la cuenta");
+      }
+    } catch (error) {
+      console.error(error);
+      setError("Error de conexión con el servidor");
+    }
   }
 
   return (
@@ -44,7 +69,7 @@ export default function Register() {
         <label htmlFor="confirmar">Confirmar contraseña</label>
         <input id="confirmar" name="confirmar" type="password" value={datos.confirmar} onChange={cambiar} required />
 
-        {error && <p className="auth-error">{error}</p>}
+        {error && <p className="auth-error" style={{ color: "red" }}>{error}</p>}
 
         <Button type="submit">Registrarme</Button>
       </form>

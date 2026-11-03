@@ -1,25 +1,60 @@
-const API = "http://localhost:4000/api/v1";
+// URL
+const API = "http://localhost:5000/api/contenido";
 
-async function pedir(ruta, opciones) {
-  const res = await fetch(`${API}${ruta}`, opciones);
+async function pedir(ruta, opciones = {}) {
+  // Token
+  const token = localStorage.getItem("token");
+
+  // Headers
+  const headers = {
+    ...opciones.headers,
+    "Authorization": `Bearer ${token}`
+  };
+
+  // Petición
+  const res = await fetch(`${API}${ruta}`, {
+    ...opciones,
+    headers
+  });
+  
+  // Respuesta
   const datos = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(datos.error || "Error en la petición");
+  
+  // Error
+  if (!res.ok) throw new Error(datos.error || datos.mensaje || "Error en la petición");
   return datos;
 }
 
-export const obtenerContenido = (cuadernoId) => pedir(`/cuadernos/${cuadernoId}/contenido`);
+// GET
+export const obtenerContenido = async (cuadernoId) => {
+  const respuesta = await pedir(`/cuadernos/${cuadernoId}/contenido`);
+  return respuesta.data;
+};
 
-export const guardarContenido = (cuadernoId, datos) =>
-  pedir(`/cuadernos/${cuadernoId}/contenido`, {
+// PUT
+export const guardarContenido = async (cuadernoId, datos) => {
+  const respuesta = await pedir(`/cuadernos/${cuadernoId}/contenido`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(datos), // { titulo, contenido }
+    body: JSON.stringify(datos)
   });
+  return respuesta.data;
+};
 
-//Sube una imagen al servidor y devuelve su URL
+// POST Imagen
 export async function subirImagen(archivo) {
   const formData = new FormData();
   formData.append("imagen", archivo);
-  const datos = await pedir("/imagenes", { method: "POST", body: formData });
+  
+  const res = await fetch("http://localhost:5000/api/editor/imagenes", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    },
+    body: formData
+  });
+
+  const datos = await res.json();
+  if (!res.ok) throw new Error(datos.error || "Error al subir imagen");
   return datos.url;
 }

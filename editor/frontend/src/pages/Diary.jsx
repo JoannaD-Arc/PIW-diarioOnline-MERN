@@ -1,42 +1,99 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button.jsx";
 
-// SOLO PARA PRUEBAS: datos falsos hasta conectar la API
-const DIARIOS_PRUEBA = [
-  { id: "000000000000000000000001", titulo: "Mi primer diario", archivado: false },
-  { id: "000000000000000000000002", titulo: "Ideas de viaje", archivado: false },
-  { id: "000000000000000000000003", titulo: "Diario viejo", archivado: true },
-];
-
 export default function Diary() {
-  const [diarios, setDiarios] = useState(DIARIOS_PRUEBA);
+  const [diarios, setDiarios] = useState([]);
   const [verArchivados, setVerArchivados] = useState(false);
+  const [cargando, setCargando] = useState(true);
+  const navigate = useNavigate();
 
-  function crear() {
-    // TODO: POST a la API; el id lo va a dar MongoDB
-    const nuevo = {
-      id: String(Date.now()),
-      titulo: "Diario sin título",
-      archivado: false,
+  useEffect(() => {
+    const traerDiarios = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:5000/api/contenido", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        
+        if (res.status === 401) {
+          localStorage.removeItem("token");
+          navigate("/login");
+          return;
+        }
+
+        const datos = await res.json();
+        if (res.ok) setDiarios(datos.data);
+      } catch (error) {
+        console.error("Error al traer diarios:", error);
+      } finally {
+        setCargando(false);
+      }
     };
-    setDiarios([nuevo, ...diarios]);
-  }
+    
+    traerDiarios();
+  }, [navigate]);
+
+  const crear = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await fetch("http://localhost:5000/api/contenido", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          titulo: "Diario sin título",
+          contenido: { type: "doc", content: [{ type: "paragraph" }] }
+        })
+      });
+
+      const datos = await res.json();
+      if (res.ok) {
+        setDiarios([datos.data, ...diarios]);
+      } else {
+        alert("Error al crear: " + datos.error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const eliminar = async (id) => {
+    if (!window.confirm("¿Eliminar este diario? No se puede deshacer.")) return;
+    
+    const token = localStorage.getItem("token");
+    try {
+      const res = await fetch(`http://localhost:5000/api/contenido/${id}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+
+      if (res.ok) {
+        setDiarios(diarios.filter((d) => d._id !== id));
+      } else {
+        alert("Error al eliminar");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   function alternarArchivo(id) {
-    // TODO: PUT/PATCH a la API
     setDiarios(
-      diarios.map((d) => (d.id === id ? { ...d, archivado: !d.archivado } : d))
+      diarios.map((d) => (d._id === id ? { ...d, archivado: !d.archivado } : d))
     );
   }
 
-  function eliminar(id) {
-    // TODO: DELETE a la API
-    if (!window.confirm("¿Eliminar este diario? No se puede deshacer.")) return;
-    setDiarios(diarios.filter((d) => d.id !== id));
-  }
+  const visibles = diarios.filter((d) => (d.archivado || false) === verArchivados);
 
-  const visibles = diarios.filter((d) => d.archivado === verArchivados);
+  if (cargando) return <p style={{ textAlign: "center", marginTop: "50px" }}>Cargando tus diarios...</p>;
 
   return (
     <section className="diaries">
@@ -57,15 +114,15 @@ export default function Diary() {
       ) : (
         <ul className="diaries-grid">
           {visibles.map((d) => (
-            <li key={d.id} className="diary-card">
-              <Link to={`/diarios/${d.id}`} className="diary-card-title">
+            <li key={d._id} className="diary-card">
+              <Link to={`/diarios/${d._id}`} className="diary-card-title">
                 {d.titulo}
               </Link>
               <div className="diary-card-actions">
-                <Button variant="secondary" onClick={() => alternarArchivo(d.id)}>
+                <Button variant="secondary" onClick={() => alternarArchivo(d._id)}>
                   {d.archivado ? "Desarchivar" : "Archivar"}
                 </Button>
-                <Button variant="danger" onClick={() => eliminar(d.id)}>
+                <Button variant="danger" onClick={() => eliminar(d._id)}>
                   Eliminar
                 </Button>
               </div>
