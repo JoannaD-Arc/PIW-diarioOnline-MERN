@@ -46,7 +46,8 @@ export async function subirImagen(archivo) {
   const formData = new FormData();
   formData.append("imagen", archivo);
   
-  const res = await fetch("http://localhost:5000/api/editor/imagenes", {
+  // Cambiamos la URL a /api/imagenes
+  const res = await fetch("http://localhost:5000/api/imagenes", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${localStorage.getItem("token")}`

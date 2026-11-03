@@ -1,11 +1,13 @@
 
 require("dotenv").config();
 
+
 // Prueba temporal para ver si lee el archivo
 console.log("El secreto de mi Diario Koi es:", process.env.JWT_SECRET);
 
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const conectarDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
@@ -26,6 +28,8 @@ app.use(cors());
 }));*/
 
 app.use(express.json({ limit: "50mb" }));
+
+app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 
 //BORRAR
 
@@ -53,8 +57,8 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use('/api/contenido', require('./routes/contenidoRoutes'));
+app.use("/api/imagenes", imagenRoutes);
 app.use("/api/editor", contenidoRoutes);
-app.use("/api/editor", imagenRoutes);
 
 
 // Ruta temporal para probar la autenticación.
