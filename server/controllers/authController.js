@@ -149,9 +149,3 @@ module.exports = {
   registrarUsuario,
   iniciarSesion
 };
-
-
-module.exports = {
-  registrarUsuario,
-  iniciarSesion
-};
