@@ -6,6 +6,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes"); //Cambio aqui para el usuario
+const entryRoutes = require("./routes/entryRoutes"); //Cambio aqui para las entradas
+
 const protegerRuta = require("./middleware/authMiddleware");
 
 const app = express();
@@ -35,6 +38,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes); //Cambio aqui para el usuario
+app.use("/api/entries", entryRoutes); //Cambio aqui para las entradas
 
 app.get("/api/auth/me", protegerRuta, (req, res) => {
   res.status(200).json({
@@ -64,3 +69,4 @@ async function iniciarServidor() {
 }
 
 iniciarServidor();
+
