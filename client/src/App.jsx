@@ -1,5 +1,6 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
+import ProtectedRoute from "./components/protectedRoute.jsx"
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Diary from "./pages/Diary.jsx";
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/registro" element={<Register />} />
         <Route path="/diarios" element={<Diary />} />
         <Route path="/diarios/:id" element={<InsideDiary />} />
+        <Route path="*" element={<Navigate to="/diaries" replace/>} />
       </Route>
     </Routes>
   );
