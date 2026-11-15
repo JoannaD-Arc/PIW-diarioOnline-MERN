@@ -3,8 +3,13 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 import Image from "@tiptap/extension-image";
+<<<<<<< HEAD
 import Toolbar from "../editor/Toolbar.jsx";
 import { guardarContenido, obtenerContenido } from "../../services/contenidoApi";
+=======
+import Toolbar from "./Toolbar.jsx";
+import { guardarContenido, obtenerContenido } from "../../services/api.js";
+>>>>>>> 350a379 (Update: base funcional para front)
 
 const ESPERA_MS = 1000; // se guarda 1 segundo después del último cambio
 

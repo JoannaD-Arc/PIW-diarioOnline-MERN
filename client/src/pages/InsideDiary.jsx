@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import Editor from "../components/editor/Editor.jsx";
+<<<<<<< HEAD
 
 // Solo para pruebas: si no hay id en la URL, usa este
 const ID_PRUEBA = "000000000000000000000001";
@@ -7,4 +8,10 @@ const ID_PRUEBA = "000000000000000000000001";
 export default function InsideDiary() {
   const { id } = useParams();
   return <Editor cuadernoId={id || ID_PRUEBA} />;
+=======
+
+export default function InsideDiary() {
+  const { id } = useParams();
+  return <Editor cuadernoId={id} />;
+>>>>>>> 350a379 (Update: base funcional para front)
 }

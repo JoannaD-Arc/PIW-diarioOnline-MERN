@@ -1,5 +1,9 @@
 import { useRef, useState } from "react";
+<<<<<<< HEAD
 import { subirImagen } from "../../services/contenidoApi";
+=======
+import { subirImagen } from "../../services/api.js";
+>>>>>>> 350a379 (Update: base funcional para front)
 
   export default function Toolbar({ editor, estado }) {
   const inputImagen = useRef(null);

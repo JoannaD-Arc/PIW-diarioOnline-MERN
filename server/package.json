@@ -1,5 +1,11 @@
 {
   "name": "server",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
   "packageManager": "yarn@4.14.1",
   "dependencies": {
     "bcryptjs": "^3.0.3",
@@ -13,6 +19,6 @@
     "multer-storage-cloudinary": "^4.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.14.10"
+    "nodemon": "^3.1.10"
   }
 }

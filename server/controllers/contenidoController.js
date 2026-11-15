@@ -1,89 +1,122 @@
+const mongoose = require("mongoose");
 const Contenido = require("../models/Contenido");
 
-// Crear
+const idValido = (id) => mongoose.isValidObjectId(id);
+const noEncontrado = (res) =>
+  res.status(404).json({ exito: false, error: "Diario no encontrado." });
+
+// POST /api/contenido  -> crear diario
 const crear = async (req, res) => {
   try {
-    const nuevoContenido = new Contenido({
+    const nuevo = await Contenido.create({
       owner: req.userId,
-      titulo: req.body.titulo || "Cuaderno sin título",
-      contenido: req.body.contenido || null,
+      titulo: req.body.titulo || undefined,
+      contenido: req.body.contenido || {
+        type: "doc",
+        content: [{ type: "paragraph" }],
+      },
     });
-    
-    await nuevoContenido.save();
-    res.status(201).json({ exito: true, data: nuevoContenido });
+    res.status(201).json({ exito: true, data: nuevo });
   } catch (error) {
-    res.status(500).json({ exito: false, error: error.message });
+    console.error(error.message);
+    res
+      .status(500)
+      .json({ exito: false, error: "No se pudo crear el diario." });
   }
 };
 
-// Listar
+// GET /api/contenido  -> listar diarios del usuario (sin el contenido, para que sea liviano)
 const listar = async (req, res) => {
   try {
-    const cuadernos = await Contenido.find({ owner: req.userId });
-    res.status(200).json({ exito: true, data: cuadernos });
+    const diarios = await Contenido.find({ owner: req.userId })
+      .select("titulo archivado createdAt updatedAt")
+      .sort({ updatedAt: -1 });
+    res.status(200).json({ exito: true, data: diarios });
   } catch (error) {
-    res.status(500).json({ exito: false, error: error.message });
+    console.error(error.message);
+    res
+      .status(500)
+      .json({ exito: false, error: "No se pudieron cargar los diarios." });
   }
 };
 
-// Obtener
+// GET /api/contenido/cuadernos/:id/contenido  -> abrir un diario (título + contenido)
 const obtener = async (req, res) => {
   try {
-    const cuaderno = await Contenido.findOne({ 
-      _id: req.params.id, 
-      owner: req.userId 
+    if (!idValido(req.params.id)) return noEncontrado(res);
+    const diario = await Contenido.findOne({
+      _id: req.params.id,
+      owner: req.userId,
     });
-
-    if (!cuaderno) {
-      return res.status(404).json({ exito: false, error: "No encontrado o no tienes permiso" });
-    }
-
-    res.status(200).json({ exito: true, data: cuaderno });
+    if (!diario) return noEncontrado(res);
+    res.status(200).json({ exito: true, data: diario });
   } catch (error) {
-    res.status(500).json({ exito: false, error: error.message });
+    console.error(error.message);
+    res
+      .status(500)
+      .json({ exito: false, error: "No se pudo abrir el diario." });
   }
 };
 
-// Guardar
+// PUT /api/contenido/cuadernos/:id/contenido  -> guardar título y/o contenido
 const guardar = async (req, res) => {
   try {
-    const cuaderno = await Contenido.findOneAndUpdate(
+    if (!idValido(req.params.id)) return noEncontrado(res);
+
+    const cambios = {};
+    if (typeof req.body.titulo === "string") cambios.titulo = req.body.titulo;
+    if (req.body.contenido !== undefined)
+      cambios.contenido = req.body.contenido;
+
+    const diario = await Contenido.findOneAndUpdate(
       { _id: req.params.id, owner: req.userId },
-      { 
-        contenido: req.body.contenido,
-        titulo: req.body.titulo 
-      },
-      { new: true }
+      cambios,
+      { new: true, runValidators: true },
     );
-
-    if (!cuaderno) return res.status(404).json({ exito: false, error: "No encontrado" });
-
-    res.status(200).json({ exito: true, data: cuaderno });
+    if (!diario) return noEncontrado(res);
+    res.status(200).json({ exito: true, data: diario });
   } catch (error) {
-    res.status(500).json({ exito: false, error: error.message });
+    console.error(error.message);
+    res.status(500).json({ exito: false, error: "No se pudo guardar." });
   }
 };
 
-// Eliminar
+// PATCH /api/contenido/:id/archivar  body: { archivado: true | false }
+const archivar = async (req, res) => {
+  try {
+    if (!idValido(req.params.id)) return noEncontrado(res);
+    if (typeof req.body.archivado !== "boolean") {
+      return res
+        .status(400)
+        .json({ exito: false, error: "Falta 'archivado' (true o false)." });
+    }
+    const diario = await Contenido.findOneAndUpdate(
+      { _id: req.params.id, owner: req.userId },
+      { archivado: req.body.archivado },
+      { new: true },
+    ).select("titulo archivado createdAt updatedAt");
+    if (!diario) return noEncontrado(res);
+    res.status(200).json({ exito: true, data: diario });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ exito: false, error: "No se pudo archivar." });
+  }
+};
+
+// DELETE /api/contenido/:id
 const eliminar = async (req, res) => {
   try {
-    const cuaderno = await Contenido.findOneAndDelete({ 
-      _id: req.params.id, 
-      owner: req.userId 
+    if (!idValido(req.params.id)) return noEncontrado(res);
+    const diario = await Contenido.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.userId,
     });
-
-    if (!cuaderno) return res.status(404).json({ exito: false, error: "No encontrado" });
-
-    res.status(200).json({ exito: true, mensaje: "Cuaderno eliminado" });
+    if (!diario) return noEncontrado(res);
+    res.status(200).json({ exito: true, mensaje: "Diario eliminado." });
   } catch (error) {
-    res.status(500).json({ exito: false, error: error.message });
+    console.error(error.message);
+    res.status(500).json({ exito: false, error: "No se pudo eliminar." });
   }
 };
 
-module.exports = {
-  crear,
-  listar,
-  obtener,
-  guardar,
-  eliminar
-};
+module.exports = { crear, listar, obtener, guardar, archivar, eliminar };
