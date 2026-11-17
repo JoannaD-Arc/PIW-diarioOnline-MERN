@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/Button.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [correo, setCorreo] = useState("");
@@ -14,12 +13,12 @@ export default function Login() {
       const respuesta = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
-          email: correo, 
-          password: contrasena 
-        })
+        body: JSON.stringify({
+          email: correo,
+          password: contrasena,
+        }),
       });
 
       const datos = await respuesta.json();
@@ -27,47 +26,52 @@ export default function Login() {
       if (respuesta.ok) {
         localStorage.setItem("token", datos.token);
         alert("¡Login exitoso! Bienvenida a Diary Koi.");
-        navigate("/diarios"); 
+        navigate("/diarios");
       } else {
         alert("Error: " + (datos.mensaje || "Correo o contraseña incorrectos"));
       }
     } catch (error) {
       console.error("Error de red:", error);
-      alert("No se pudo conectar con el servidor. Revisa que el backend esté encendido.");
+      alert(
+        "No se pudo conectar con el servidor. Revisa que el backend esté encendido.",
+      );
     }
   }
 
   return (
-    <section className="auth">
-      <h1>Iniciar sesión</h1>
-
-      <form className="auth-form" onSubmit={enviar}>
-        <label htmlFor="correo">Correo</label>
+    <div className="form-box login-box">
+      <div className="avatar-circle">
+        <UserIcon />
+      </div>
+      <form onSubmit={enviar}>
         <input
-          id="correo"
           type="email"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
-          placeholder="correo@ejemplo.com"
+          placeholder="Correo"
           required
         />
-
-        <label htmlFor="contrasena">Contraseña</label>
         <input
-          id="contrasena"
           type="password"
           value={contrasena}
           onChange={(e) => setContrasena(e.target.value)}
-          placeholder="Tu contraseña"
+          placeholder="Contraseña"
           required
         />
-
-        <Button type="submit">Entrar</Button>
+        <div className="submit-row">
+          <button type="submit" className="btn-submit">
+            Login
+          </button>
+        </div>
       </form>
+    </div>
+  );
+}
 
-      <p className="auth-link">
-        ¿No tienes cuenta? <Link to="/registro">Regístrate</Link>
-      </p>
-    </section>
+function UserIcon() {
+  return (
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="#e2e8f0">
+      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+    </svg>
   );
 }

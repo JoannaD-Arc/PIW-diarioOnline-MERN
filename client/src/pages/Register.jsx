@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/Button.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [datos, setDatos] = useState({
@@ -18,7 +17,6 @@ export default function Register() {
 
   async function enviar(e) {
     e.preventDefault();
-    
     if (datos.contrasena !== datos.confirmar) {
       setError("Las contraseñas no coinciden");
       return;
@@ -42,7 +40,7 @@ export default function Register() {
 
       if (respuesta.ok) {
         alert("¡Cuenta creada con éxito! Ya puedes iniciar sesión.");
-        navigate("/login"); 
+        // Opcional: limpiar form o recargar / cambiar estado si deseas
       } else {
         setError(resultado.mensaje || "No se pudo crear la cuenta");
       }
@@ -53,30 +51,70 @@ export default function Register() {
   }
 
   return (
-    <section className="auth">
-      <h1>Crear cuenta</h1>
+    <div className="form-box register-box">
+      <div className="avatar-circle">
+        <UserIcon />
+      </div>
+      <form onSubmit={enviar}>
+        <input
+          name="nombre"
+          type="text"
+          value={datos.nombre}
+          onChange={cambiar}
+          placeholder="Nombre de usuario"
+          required
+        />
 
-      <form className="auth-form" onSubmit={enviar}>
-        <label htmlFor="nombre">Nombre</label>
-        <input id="nombre" name="nombre" value={datos.nombre} onChange={cambiar} required />
+        <input
+          name="correo"
+          type="email"
+          value={datos.correo}
+          onChange={cambiar}
+          placeholder="Correo"
+          required
+        />
 
-        <label htmlFor="correo">Correo</label>
-        <input id="correo" name="correo" type="email" value={datos.correo} onChange={cambiar} required />
+        <input
+          name="contrasena"
+          type="password"
+          value={datos.contrasena}
+          onChange={cambiar}
+          placeholder="Contraseña"
+          required
+        />
 
-        <label htmlFor="contrasena">Contraseña</label>
-        <input id="contrasena" name="contrasena" type="password" value={datos.contrasena} onChange={cambiar} required />
+        <input
+          name="confirmar"
+          type="password"
+          value={datos.confirmar}
+          onChange={cambiar}
+          placeholder="Confirmar contraseña"
+          required
+        />
 
-        <label htmlFor="confirmar">Confirmar contraseña</label>
-        <input id="confirmar" name="confirmar" type="password" value={datos.confirmar} onChange={cambiar} required />
+        {error && (
+          <p
+            className="auth-error"
+            style={{ color: "#ff6b6b", fontSize: "12px", margin: 0 }}
+          >
+            {error}
+          </p>
+        )}
 
-        {error && <p className="auth-error" style={{ color: "red" }}>{error}</p>}
-
-        <Button type="submit">Registrarme</Button>
+        <div className="submit-row">
+          <button type="submit" className="btn-submit">
+            Registrar
+          </button>
+        </div>
       </form>
+    </div>
+  );
+}
 
-      <p className="auth-link">
-        ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
-      </p>
-    </section>
+function UserIcon() {
+  return (
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="#e2e8f0">
+      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+    </svg>
   );
 }

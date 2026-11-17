@@ -1,22 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Poetsen+One&display=swap");
+
+/* =========================
+   VARIABLES GLOBALES
+========================= */
+
 :root {
-  --fondo: #faf7f2;
-  --texto: #2b2b2b;
-  --gris-oscuro: #333333;
-  --acento: #e8622c;
-  --acento-hover: #cf501d;
-  --borde: #d9d4cc;
-  --peligro: #c0392b;
+  /* Colores */
+  --texto: #333333;
+  --fondo: #f7f7f7;
+  --primario: #e34326;
+  --secundario: #ffce1f;
+  --acento: #e34326;
+
+  /* Tipografías */
+  --fuente-principal: "Nunito", sans-serif;
+  --fuente-titulos: "Poetsen One", sans-serif;
+
+  /* Tamaños */
+  --texto-base: 1rem;
+  --texto-pequeno: 0.75rem;
+
+  /* Otros */
+  --radio: 8px;
+  --transicion: 0.2s ease;
 }
 
-* { box-sizing: border-box; }
+/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
 
 body {
   margin: 0;
-  font-family: system-ui, "Segoe UI", Arial, sans-serif;
-  background: var(--fondo);
-  color: var(--texto);
+  font-family: var(--fuente-principal);
+  font-size: var(--texto-base);
+  font-weight: 400;
   line-height: 1.5;
+  background-color: var(--fondo);
+  color: var(--texto);
 }
 
-a { color: var(--acento); text-decoration: none; }
-a:hover { text-decoration: underline; }
+/* =========================
+   TIPOGRAFÍA
+========================= */
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 4.21rem;
+}
+
+h2 {
+  font-size: 3.158rem;
+}
+
+h3 {
+  font-size: 2.369rem;
+}
+
+h4 {
+  font-size: 1.777rem;
+}
+
+h5 {
+  font-size: 1.333rem;
+}
+
+small {
+  font-size: var(--texto-pequeno);
+}
+
+/* =========================
+   ENLACES
+========================= */
+
+a {
+  color: var(--acento);
+  text-decoration: none;
+  transition: var(--transicion);
+}
+
+a:hover {
+  text-decoration: underline;
+}
