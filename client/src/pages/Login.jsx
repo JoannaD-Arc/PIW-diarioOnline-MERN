@@ -1,40 +1,26 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext.jsx";
 
 export default function Login() {
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
+  const [error, setError] = useState("");
+
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   async function enviar(e) {
     e.preventDefault();
+    setError("");
 
     try {
-      const respuesta = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: correo,
-          password: contrasena,
-        }),
-      });
-
-      const datos = await respuesta.json();
-
-      if (respuesta.ok) {
-        localStorage.setItem("token", datos.token);
-        alert("¡Login exitoso! Bienvenida a Diary Koi.");
-        navigate("/diarios");
-      } else {
-        alert("Error: " + (datos.mensaje || "Correo o contraseña incorrectos"));
-      }
+      await login(correo, contrasena);
+      navigate("/");
     } catch (error) {
-      console.error("Error de red:", error);
-      alert(
-        "No se pudo conectar con el servidor. Revisa que el backend esté encendido.",
-      );
+      console.error("Error al iniciar sesión:", error);
+      setError(error.message || "Correo o contraseña incorrectos");
     }
   }
 
@@ -43,6 +29,7 @@ export default function Login() {
       <div className="avatar-circle">
         <UserIcon />
       </div>
+
       <form onSubmit={enviar}>
         <input
           type="email"
@@ -51,6 +38,7 @@ export default function Login() {
           placeholder="Correo"
           required
         />
+
         <input
           type="password"
           value={contrasena}
@@ -58,6 +46,9 @@ export default function Login() {
           placeholder="Contraseña"
           required
         />
+
+        {error && <p className="error-message">{error}</p>}
+
         <div className="submit-row">
           <button type="submit" className="btn-submit">
             Login

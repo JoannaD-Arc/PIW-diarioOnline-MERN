@@ -5,6 +5,7 @@ import Auth from "./pages/AuthPage.jsx";
 import Diary from "./pages/Diary.jsx";
 import InsideDiary from "./pages/InsideDiary.jsx";
 import Home from "./pages/Home.jsx";
+import Profile from "./pages/Profile.jsx";
 
 export default function App() {
   return (
@@ -14,7 +15,16 @@ export default function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/diarios" element={<Diary />} />
         <Route path="/diarios/:id" element={<InsideDiary />} />
-        <Route path="*" element={<Navigate to="/" replace />} />{" "}
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );
