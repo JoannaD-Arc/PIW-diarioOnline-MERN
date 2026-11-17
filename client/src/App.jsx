@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 
 function App() {
@@ -28,8 +29,18 @@ function App() {
       setEstado("Error de conexión. ¿Está encendido el backend?");
     }
   };
+=======
+import { Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./components/Layout.jsx";
+import ProtectedRoute from "./components/protectedRoute.jsx";
+import Auth from "./pages/AuthPage.jsx";
+import Diary from "./pages/Diary.jsx";
+import InsideDiary from "./pages/InsideDiary.jsx";
+import Home from "./pages/Home.jsx";
+>>>>>>> 59b35f8 (Update: front inicial)
 
   return (
+<<<<<<< HEAD
     <div style={{ padding: "40px", fontFamily: "sans-serif" }}>
       <h2>Prueba de Conexión a MongoDB</h2>
       <form onSubmit={enviarDatos} style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "300px" }}>
@@ -47,6 +58,17 @@ function App() {
       </form>
       <p style={{ marginTop: "15px", fontWeight: "bold", color: "#d81b60" }}>{estado}</p>
     </div>
+=======
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/diarios" element={<Diary />} />
+        <Route path="/diarios/:id" element={<InsideDiary />} />
+        <Route path="*" element={<Navigate to="/" replace />} />{" "}
+      </Route>
+    </Routes>
+>>>>>>> 59b35f8 (Update: front inicial)
   );
 }
 

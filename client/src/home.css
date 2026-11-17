@@ -1,0 +1,240 @@
+/* =========================
+   HOME - PALETA
+   Solo afecta a la página principal
+========================= */
+
+.tema-koi {
+  --h-nav: var(--texto);
+  --h-bg: var(--fondo);
+  --h-media: #e8e2d9;
+  --h-card: #ffce1f;
+  --h-play: var(--primario);
+  --h-btn: var(--primario);
+  --h-btn-hover: #c93620;
+  --h-quote-icon: var(--primario);
+}
+
+/* =========================
+   ESTRUCTURA GENERAL
+========================= */
+
+.content-full {
+  flex: 1;
+  width: 100%;
+}
+
+/* Navbar y footer */
+
+.tema-koi .navbar {
+  background-color: var(--h-nav);
+}
+
+.tema-koi .footer {
+  background-color: var(--h-nav);
+  color: var(--fondo);
+  text-align: left;
+  padding: 28px 48px;
+}
+
+/* =========================
+   HOME
+========================= */
+
+.home {
+  background-color: var(--h-bg);
+  color: var(--texto);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.home-hero {
+  text-align: center;
+  padding: 72px 24px 80px;
+}
+
+.home-hero h1 {
+  margin: 0 0 28px;
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+.home-btn {
+  display: inline-block;
+  background-color: var(--h-btn);
+  color: var(--fondo);
+  padding: 10px 32px;
+  border-radius: var(--radio);
+  font-size: 1rem;
+  transition: var(--transicion);
+}
+
+.home-btn:hover {
+  background-color: var(--h-btn-hover);
+  text-decoration: none;
+}
+
+/* =========================
+   IMAGEN / VIDEO
+========================= */
+
+.media {
+  background-color: var(--h-media);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.media-play {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: var(--h-play);
+  color: var(--fondo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  padding-left: 6px;
+}
+
+.home-banner {
+  width: 100%;
+  height: clamp(240px, 44vw, 440px);
+}
+
+/* =========================
+   SECCIONES FEATURE
+========================= */
+
+.feature {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 78px 24px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 34px;
+}
+
+.feature-invertida .feature-text {
+  order: 2;
+}
+
+.feature-invertida .feature-media {
+  order: 1;
+}
+
+.feature-text {
+  align-self: start;
+}
+
+.feature-text h2 {
+  margin: 0 0 16px;
+  font-size: 2.6rem;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.feature-text p {
+  margin: 0;
+  color: var(--texto);
+  line-height: 1.6;
+}
+
+.feature-media {
+  position: relative;
+}
+
+.feature-media .media {
+  aspect-ratio: 1 / 0.9;
+  width: 100%;
+}
+
+/* =========================
+   CITAS
+========================= */
+
+.quote {
+  position: absolute;
+  bottom: 24px;
+  right: calc(100% - 82px);
+  width: 97%;
+  margin: 0;
+  padding: 14px 24px 22px;
+  background-color: var(--h-card);
+  color: var(--texto);
+  text-align: center;
+  font-style: italic;
+  font-size: 1.3rem;
+}
+
+.feature-invertida .quote {
+  right: auto;
+  left: calc(100% - 82px);
+}
+
+.quote p {
+  margin: 6px 0 0;
+}
+
+.quote-icon {
+  color: var(--h-quote-icon);
+  font-size: 1.1rem;
+}
+
+/* =========================
+   CTA Y FRANJA FINAL
+========================= */
+
+.home-cta {
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.home-strip {
+  height: 56px;
+  background-color: var(--h-card);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 760px) {
+  .home-hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .feature {
+    grid-template-columns: 1fr;
+    padding-top: 48px;
+  }
+
+  .feature-invertida .feature-text,
+  .feature-invertida .feature-media {
+    order: 0;
+  }
+
+  .quote,
+  .feature-invertida .quote {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 90%;
+    margin: -24px auto 0;
+  }
+
+  .tema-koi .footer {
+    padding: 24px;
+  }
+}
