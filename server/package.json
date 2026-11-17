@@ -11,5 +11,9 @@
   },
   "devDependencies": {
     "nodemon": "^1.14.10"
+  },
+  "allowScripts": {
+    "nodemon@1.14.10": true,
+    "core-js@3.51.0": true
   }
 }

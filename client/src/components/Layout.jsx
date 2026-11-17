@@ -1,10 +1,12 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { FaBook, FaUserCircle } from "react-icons/fa";
+import { useAuth } from "../context/authContext.jsx";
 
 // Páginas que usan el tema azul grisáceo y ocupan todo el ancho
 const PAGINAS_CON_TEMA = ["/", "/diarios"];
 
 export default function Layout() {
+  const { usuario } = useAuth();
   const conTema = PAGINAS_CON_TEMA.includes(useLocation().pathname);
 
   return (
@@ -18,9 +20,12 @@ export default function Layout() {
           <Link to="/diarios" aria-label="Diarios">
             <FaBook />
           </Link>
-          <Link to="/auth" aria-label="Iniciar sesión">
+          <Link
+            to={usuario ? "/profile" : "/auth"}
+            aria-label={usuario ? "Mi perfil" : "Iniciar sesión"}
+          >
             <FaUserCircle />
-          </Link>
+          </Link>{" "}
         </div>
       </nav>
 

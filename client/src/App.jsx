@@ -37,7 +37,11 @@ import Auth from "./pages/AuthPage.jsx";
 import Diary from "./pages/Diary.jsx";
 import InsideDiary from "./pages/InsideDiary.jsx";
 import Home from "./pages/Home.jsx";
+<<<<<<< HEAD
 >>>>>>> 59b35f8 (Update: front inicial)
+=======
+import Profile from "./pages/Profile.jsx";
+>>>>>>> 578920f (Avance de frontend)
 
   return (
 <<<<<<< HEAD
@@ -65,7 +69,16 @@ import Home from "./pages/Home.jsx";
         <Route path="/auth" element={<Auth />} />
         <Route path="/diarios" element={<Diary />} />
         <Route path="/diarios/:id" element={<InsideDiary />} />
-        <Route path="*" element={<Navigate to="/" replace />} />{" "}
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
 >>>>>>> 59b35f8 (Update: front inicial)

@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "react-icons": "^5.7.0",
+    "react-router-dom": "^7.18.5"
+  },
+  "name": "piw-diarioonline-mern",
+  "version": "1.0.0",
+  "description": "Proyecto web full-stack utilizando MongoDB, Express, React (Vite) y Node.js.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoannaD-Arc/PIW-diarioOnline-MERN.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JoannaD-Arc/PIW-diarioOnline-MERN/issues"
+  },
+  "homepage": "https://github.com/JoannaD-Arc/PIW-diarioOnline-MERN#readme"
+}
