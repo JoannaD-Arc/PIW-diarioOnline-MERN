@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { subirImagen } from "../../services/api.js";
+import { subirImagen } from "../../services/contenidoApi.js";
 
   export default function Toolbar({ editor, estado }) {
   const inputImagen = useRef(null);

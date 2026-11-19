@@ -6,7 +6,7 @@ import {
   crearDiario,
   eliminarDiario,
   archivarDiario,
-} from "../services/api.js";
+} from "../services/contenidoApi.js";
 
 export default function Diary() {
   const [diarios, setDiarios] = useState([]);
