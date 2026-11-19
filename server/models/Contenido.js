@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 const contenidoSchema = new mongoose.Schema(
   {
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    titulo: { type: String, default: "Cuaderno sin título", trim: true },
-    contenido: { type: mongoose.Schema.Types.Mixed, default: null },
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, index: true },
+    titulo: { type: String, default: "Diario sin título", trim: true, maxlength: 150 },
+    contenido: { type: mongoose.Schema.Types.Mixed, default: null }, // JSON de TipTap
+    archivado: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
