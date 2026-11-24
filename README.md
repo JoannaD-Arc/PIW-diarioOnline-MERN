@@ -7,11 +7,11 @@
 - Organizar tus notas.
 - Interfaz simple y enfocada en la escritura.
 
-## 🛠️ Tecnologías utilizadas
+## 🛠️ Tecnologías utilizadas STACK MERN
 - **Frontend:** [Ej. React, HTML/CSS, Tailwind]
 - **Backend:** [Ej. Node.js, Express]
 - **Base de datos:** [Mongo DB]
-
+- **Host:** [HOSTINGER]
 ---
 
 Para más info visita la [documentación completa de Notion](https://app.notion.com/p/Proyecto-Integral-Web-3e3ea5565f52804dbdbdf51d48a8ab3d?source=copy_link).
