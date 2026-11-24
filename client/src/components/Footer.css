@@ -1,0 +1,116 @@
+.footer {
+  --f-bg: var(--texto);
+  --f-text: var(--fondo);
+  --f-accent: #ffce1f;
+
+  background-color: var(--f-bg);
+  color: var(--f-text);
+  padding: 48px 48px 24px;
+  margin-top: auto;
+}
+
+.footer-contenido {
+  max-width: 1060px;
+  margin: 0 auto 32px;
+  display: grid;
+  grid-template-columns: 1.6fr 1.4fr 1fr;
+  gap: 40px;
+}
+
+.footer-info strong {
+  font-size: 1.35rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.footer-info p {
+  margin: 0 0 14px;
+  opacity: 0.82;
+  line-height: 1.55;
+  max-width: 340px;
+  font-size: 0.95rem;
+}
+
+.footer-materia {
+  display: inline-block;
+  font-size: 0.82rem;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--f-accent);
+  letter-spacing: 0.02em;
+}
+
+.footer-equipo h4,
+.footer-enlaces h4 {
+  margin: 0 0 14px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--f-accent);
+}
+
+.footer-equipo ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  font-size: 0.92rem;
+  opacity: 0.88;
+}
+
+.footer-links-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--f-text);
+  font-size: 0.94rem;
+  opacity: 0.88;
+  transition: opacity 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-link:hover {
+  opacity: 1;
+  color: var(--f-accent);
+  transform: translateX(3px);
+  text-decoration: none;
+}
+
+.footer-bottom {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+@media (max-width: 860px) {
+  .footer-contenido {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding: 36px 24px 24px;
+  }
+
+  .footer-equipo ul {
+    grid-template-columns: 1fr;
+  }
+}

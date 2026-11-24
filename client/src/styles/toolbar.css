@@ -1,0 +1,205 @@
+/* ===== client/src/styles/toolbar.css ===== */
+
+.tb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 2px solid rgba(227, 67, 38, 0.14);
+  background: #fffdf9;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  border-radius: var(--radio) var(--radio) 0 0;
+}
+
+/* Separador visual entre grupos de botones */
+.tb-separador {
+  width: 1px;
+  height: 20px;
+  background: rgba(227, 67, 38, 0.18);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+/* Selector de estilo de párrafo */
+.tb-select {
+  height: 30px;
+  padding: 0 8px;
+  border: 1.5px solid rgba(227, 67, 38, 0.28);
+  border-radius: 6px;
+  background: #ffffff;
+  font-family: var(--fuente-principal);
+  font-size: 13px;
+  color: var(--texto);
+  cursor: pointer;
+  transition: var(--transicion);
+}
+
+.tb-select:hover {
+  border-color: var(--primario);
+  background: #fff6ee;
+}
+
+.tb-select:focus {
+  outline: none;
+  border-color: var(--primario);
+  box-shadow: 0 0 0 3px rgba(227, 67, 38, 0.18);
+}
+
+/* Botones generales minimalistas */
+.tb-btn {
+  height: 30px;
+  width: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--texto);
+  cursor: pointer;
+  transition: var(--transicion);
+  user-select: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.tb-btn svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.tb-btn:hover:not(:disabled) {
+  background: rgba(244, 162, 97, 0.18);
+  border-color: rgba(227, 67, 38, 0.25);
+  color: var(--primario);
+}
+
+.tb-btn:active:not(:disabled) {
+  background: rgba(244, 162, 97, 0.3);
+}
+
+.tb-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(227, 67, 38, 0.2);
+}
+
+.tb-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  background: transparent;
+  border-color: transparent;
+}
+
+/* Estado activo (Negrita, Cursiva, Alineaciones) */
+.tb-btn-active,
+.tb-btn-active:hover {
+  background: var(--primario);
+  color: #ffffff;
+  border-color: var(--primario);
+}
+
+/* Grupo de alineación de imagen */
+.tb-img-grupo {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 4px;
+  background: rgba(244, 162, 97, 0.14);
+  border: 1px solid rgba(227, 67, 38, 0.22);
+  border-radius: 6px;
+}
+
+/* Botón de borrar (Icono de basura) */
+.tb-btn-danger {
+  color: var(--acento, var(--primario));
+}
+
+.tb-btn-danger:hover:not(:disabled) {
+  background: var(--acento, var(--primario));
+  color: #ffffff;
+  border-color: var(--acento, var(--primario));
+}
+
+/* Texto de estado (Guardado / Guardando... / Sin guardar...) */
+.tb-estado {
+  margin-left: auto;
+  font-family: var(--fuente-principal);
+  font-size: 12px;
+  font-weight: 600;
+  color: #333333;
+  padding: 4px 10px;
+  background: var(--secundario);
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+/* Caja de vista previa de imagen */
+.tb-previa {
+  flex-basis: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  margin-top: 8px;
+  background: var(--fondo);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radio);
+}
+
+.tb-previa-img {
+  max-height: 120px;
+  max-width: 200px;
+  border-radius: 4px;
+  object-fit: contain;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tb-previa-nombre {
+  font-family: var(--fuente-principal);
+  font-size: 13px;
+  color: var(--texto);
+  margin-bottom: 8px;
+  word-break: break-all;
+  font-weight: 500;
+}
+
+.tb-previa-acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.tb-previa-acciones .tb-btn {
+  width: auto;
+  padding: 0 12px;
+  font-family: var(--fuente-principal);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.tb-previa-acciones .btn-insertar {
+  background: var(--primario);
+  color: #ffffff;
+  border-color: var(--primario);
+}
+
+.tb-previa-acciones .btn-insertar:hover {
+  background: #c93b21;
+  color: #ffffff;
+}
+
+.tb-previa-acciones .btn-cancelar {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: var(--texto);
+}
+
+.tb-previa-acciones .btn-cancelar:hover {
+  background: rgba(0, 0, 0, 0.05);
+}

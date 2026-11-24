@@ -1,0 +1,90 @@
+/* =========================
+   LAYOUT GENERAL
+========================= */
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+  background-color: var(--texto);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+}
+
+.navbar-logo {
+  color: var(--fondo);
+  font-family: var(--fuente-titulos);
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.navbar-logo:hover {
+  text-decoration: none;
+}
+
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.5rem;
+}
+
+.navbar-icons a {
+  color: var(--fondo);
+  display: flex;
+  transition: var(--transicion);
+}
+
+.navbar-icons a:hover {
+  color: var(--secundario);
+}
+
+.navbar-icons a.navbar-register-btn {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--fondo);
+  text-decoration: none;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  line-height: 1.2;
+}
+
+.navbar-icons a.navbar-register-btn:hover {
+  color: var(--texto);
+  background-color: var(--secundario);
+  border-color: var(--secundario);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  background-color: var(--texto);
+  color: var(--fondo);
+  text-align: center;
+  padding: 16px;
+  font-size: 0.9rem;
+}
+
+.footer p {
+  margin: 0;
+}

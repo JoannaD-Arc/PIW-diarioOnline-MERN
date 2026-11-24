@@ -1,0 +1,455 @@
+/* =========================
+   HOME - PALETA
+   Solo afecta a la página principal
+========================= */
+
+.tema-koi {
+  --h-nav: var(--texto);
+  --h-bg: var(--fondo);
+  --h-media: #e8e2d9;
+  --h-card: #ffce1f;
+  --h-play: var(--primario);
+  --h-btn: var(--primario);
+  --h-btn-hover: #c93620;
+  --h-quote-icon: var(--primario);
+  --h-shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --h-shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.14);
+}
+
+/* =========================
+   ESTRUCTURA GENERAL
+========================= */
+
+.content-full {
+  flex: 1;
+  width: 100%;
+}
+
+.tema-koi .navbar {
+  background-color: var(--h-nav);
+}
+
+.tema-koi .footer {
+  background-color: var(--h-nav);
+  color: var(--fondo);
+  text-align: left;
+  padding: 32px 48px;
+}
+
+/* =========================
+   HOME
+========================= */
+
+.home {
+  background-color: var(--h-bg);
+  color: var(--texto);
+}
+
+/* =========================
+   HERO SOBRE BANNER
+========================= */
+
+.home-hero-wrapper {
+  position: relative;
+  width: 100%;
+  height: clamp(420px, 68vh, 640px);
+  overflow: hidden;
+}
+
+.home-hero-wrapper .home-banner {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+.home-hero-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.home-hero {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 24px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.home-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-hero h1 {
+  margin: 0 0 16px;
+  font-size: clamp(2.8rem, 5.5vw, 4.4rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.home-subtitle {
+  margin: 0 0 32px;
+  max-width: 540px;
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--h-btn);
+  color: var(--fondo);
+  padding: 14px 32px;
+  border-radius: var(--radio);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-btn:hover {
+  background-color: var(--h-btn-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+  text-decoration: none;
+}
+
+.home-btn .btn-icon {
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+
+.home-btn:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+/* =========================
+   IMAGEN / VIDEO
+========================= */
+
+.media {
+  background-color: var(--h-media);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.media img,
+.media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.media-play {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: var(--h-play);
+  color: var(--fondo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  padding-left: 6px;
+}
+
+/* =========================
+   SECCIONES FEATURE
+========================= */
+
+.home-features {
+  padding: 36px 0 24px;
+}
+
+.feature {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 88px 32px 0;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  align-items: center;
+  gap: 56px;
+}
+
+.feature-invertida {
+  grid-template-columns: 1.15fr 1fr;
+}
+
+.feature-invertida .feature-text {
+  order: 2;
+}
+
+.feature-invertida .feature-media {
+  order: 1;
+}
+
+.feature-eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primario);
+  margin-bottom: 12px;
+}
+
+.feature-text h2 {
+  margin: 0 0 18px;
+  font-size: clamp(2rem, 3.2vw, 2.7rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+
+.feature-text p {
+  margin: 0;
+  color: var(--texto);
+  opacity: 0.86;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.feature-media {
+  position: relative;
+}
+
+.feature-media .media {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  border-radius: calc(var(--radio) * 1.5);
+  box-shadow: var(--h-shadow-lg);
+}
+
+/* =========================
+   CITAS
+========================= */
+
+.quote {
+  position: absolute;
+  bottom: -22px;
+  left: -36px;
+  max-width: 340px;
+  margin: 0;
+  padding: 18px 24px;
+  background-color: var(--h-card);
+  color: var(--texto);
+  border-radius: var(--radio);
+  box-shadow: var(--h-shadow-sm);
+  text-align: left;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.feature-invertida .quote {
+  left: auto;
+  right: -36px;
+}
+
+.quote p {
+  margin: 6px 0 0;
+  font-weight: 500;
+}
+
+.quote-icon {
+  color: var(--h-quote-icon);
+  font-size: 1rem;
+}
+
+/* =========================
+   CTA Y FRANJA FINAL
+========================= */
+
+.home-cta {
+  max-width: 720px;
+  margin: 48px auto 0;
+  text-align: center;
+  padding: 80px 24px 88px;
+}
+
+.home-cta h2 {
+  margin: 0 0 12px;
+  font-size: clamp(1.9rem, 3vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.home-cta p {
+  margin: 0 0 32px;
+  font-size: 1.08rem;
+  opacity: 0.8;
+}
+
+.home-strip {
+  height: 56px;
+  background-color: var(--h-card);
+  background-image: radial-gradient(var(--primario) 2.5px, transparent 2.5px);
+  background-size: 20px 20px;
+}
+
+.tema-koi .footer {
+  background-color: var(--h-nav);
+  color: var(--fondo);
+  padding: 48px 48px 24px;
+}
+
+.footer-contenido {
+  max-width: 1060px;
+  margin: 0 auto 32px;
+  display: grid;
+  grid-template-columns: 1.6fr 1.4fr 1fr;
+  gap: 40px;
+}
+
+.footer-info strong {
+  font-size: 1.35rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.footer-info p {
+  margin: 0 0 14px;
+  opacity: 0.82;
+  line-height: 1.55;
+  max-width: 340px;
+  font-size: 0.95rem;
+}
+
+.footer-materia {
+  display: inline-block;
+  font-size: 0.82rem;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--h-card);
+  letter-spacing: 0.02em;
+}
+
+.footer-equipo h4,
+.footer-enlaces h4 {
+  margin: 0 0 14px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--h-card);
+}
+
+/* Dos columnas para que los 6 integrantes se vean equilibrados */
+.footer-equipo ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  font-size: 0.92rem;
+  opacity: 0.88;
+}
+
+.footer-links-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--fondo);
+  font-size: 0.94rem;
+  opacity: 0.88;
+  transition: opacity 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-link:hover {
+  opacity: 1;
+  color: var(--h-card);
+  transform: translateX(3px);
+  text-decoration: none;
+}
+
+.footer-bottom {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 860px) {
+  .feature,
+  .feature-invertida {
+    grid-template-columns: 1fr;
+    padding-top: 64px;
+    gap: 28px;
+  }
+
+  .feature-invertida .feature-text,
+  .feature-invertida .feature-media {
+    order: 0;
+  }
+
+  .quote,
+  .feature-invertida .quote {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    max-width: 90%;
+    margin: -28px auto 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-hero-wrapper {
+    height: 440px;
+  }
+
+  .feature {
+    padding: 56px 20px 0;
+  }
+
+  .tema-koi .footer {
+    padding: 24px;
+  }
+}

@@ -1,0 +1,222 @@
+/* ===== client/src/styles/editor.css ===== */
+
+/* =========================
+   PÁGINA Y CONTENEDOR DEL EDITOR
+========================= */
+
+.editor-page {
+  background-color: var(--fondo);
+  color: var(--texto);
+}
+
+.editor-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px 40px 56px;
+}
+
+.editor-status-msg {
+  text-align: center;
+  margin: 48px auto;
+  font-family: var(--fuente-principal);
+  color: var(--texto);
+}
+
+.editor-error {
+  color: var(--primario);
+  font-weight: 500;
+}
+
+/* =========================
+   TÍTULO DEL CUADERNO
+========================= */
+
+.editor-title-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--fuente-titulos);
+  font-size: 1.85rem;
+  font-weight: 400;
+  color: var(--texto);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #e5dfd5;
+  padding: 6px 4px 10px;
+  outline: none;
+  transition: border-color var(--transicion);
+}
+
+.editor-title-input:focus {
+  border-bottom-color: var(--primario);
+}
+
+.editor-title-input::placeholder {
+  color: #9c958b;
+}
+
+/* =========================
+   HOJA Y ÁREA DE ESCRITURA
+========================= */
+
+.editor-sheet {
+  background-color: #ffffff;
+  border: 2px solid #e5e0d8;
+  border-radius: var(--radio);
+  overflow: visible;
+  margin-top: 14px;
+}
+
+.editor-body {
+  padding: 20px 24px 36px;
+}
+
+.ProseMirror {
+  min-height: 80vh;
+  outline: none;
+  display: flow-root;
+  font-family: var(--fuente-principal);
+  color: var(--texto);
+  line-height: 1.6;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3 {
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.ProseMirror p {
+  margin: 0 0 12px;
+}
+
+.ProseMirror a {
+  color: var(--primario);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: var(--transicion);
+}
+
+.ProseMirror a:hover {
+  text-decoration: none;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Puntos de redimensión de las imágenes */
+.ProseMirror [data-resize-handle] {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--primario);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.15s;
+  touch-action: none;
+}
+
+.ProseMirror [data-resize-handle="top-left"] {
+  top: -6px;
+  left: -6px;
+  cursor: nwse-resize;
+}
+
+.ProseMirror [data-resize-handle="top-right"] {
+  top: -6px;
+  right: -6px;
+  cursor: nesw-resize;
+}
+
+.ProseMirror [data-resize-handle="bottom-left"] {
+  bottom: -6px;
+  left: -6px;
+  cursor: nesw-resize;
+}
+
+.ProseMirror [data-resize-handle="bottom-right"] {
+  bottom: -6px;
+  right: -6px;
+  cursor: nwse-resize;
+}
+
+.ProseMirror :has([data-resize-handle]):hover [data-resize-handle],
+.ProseMirror .ProseMirror-selectednode [data-resize-handle] {
+  opacity: 1;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .ProseMirror [data-resize-handle] {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ProseMirror [data-resize-handle="top-left"] {
+    top: -12px;
+    left: -12px;
+  }
+
+  .ProseMirror [data-resize-handle="top-right"] {
+    top: -12px;
+    right: -12px;
+  }
+
+  .ProseMirror [data-resize-handle="bottom-left"] {
+    bottom: -12px;
+    left: -12px;
+  }
+
+  .ProseMirror [data-resize-handle="bottom-right"] {
+    bottom: -12px;
+    right: -12px;
+  }
+}
+
+/* Alineación de imágenes */
+.ProseMirror [data-resize-container][data-align="left"],
+.ProseMirror img[data-align="left"] {
+  float: left;
+  margin: 4px 16px 8px 0;
+}
+
+.ProseMirror [data-resize-container][data-align="right"],
+.ProseMirror img[data-align="right"] {
+  float: right;
+  margin: 4px 0 8px 16px;
+}
+
+.ProseMirror [data-resize-container][data-align="center"],
+.ProseMirror img[data-align="center"] {
+  display: flex;
+  justify-content: center;
+  margin: 12px auto;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 760px) {
+  .editor-container {
+    padding: 20px 18px 40px;
+  }
+
+  .editor-body {
+    padding: 16px 18px 28px;
+  }
+
+  .ProseMirror [data-resize-container][data-align="left"],
+  .ProseMirror [data-resize-container][data-align="right"],
+  .ProseMirror img[data-align="left"],
+  .ProseMirror img[data-align="right"] {
+    float: none;
+    margin: 12px auto;
+  }
+}
